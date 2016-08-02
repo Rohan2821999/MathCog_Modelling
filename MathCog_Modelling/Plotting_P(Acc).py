@@ -19,11 +19,13 @@ denominator = math.sqrt(2)*w*(((n1**2)+(n2**2))**0.5)
 #print numerator[2]
 
 for i in xrange (len(numerator)):
-    P_Acc.append(0.5*math.erfc(numerator[i]/denominator[i]))
+    P_Acc = 0.5*math.erfc(numerator[i]/denominator[i])
+    #print P_Acc
+    plt.scatter([ratio[i]], [n1[i]], color=[(P_Acc),(P_Acc),(P_Acc)])
 
 
 #print(P_Acc)
-plt.pcolor(P_Acc)
+#plt.scatter(ratio,P_Acc)
 plt.xlabel('Ratio (n1/n2)')
 plt.ylabel('n1')
 plt.show()
