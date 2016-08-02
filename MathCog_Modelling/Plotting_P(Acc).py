@@ -4,7 +4,7 @@ import matplotlib.pylab as pl
 import numpy as np
 import math
 
-P_Acc = []
+P_Error = []
 
 data = np.genfromtxt(r'data_sim.csv',delimiter = ',' ,names = True, dtype = None,)
 ratio = data['ratio']
@@ -19,8 +19,9 @@ denominator = math.sqrt(2)*w*(((n1**2)+(n2**2))**0.5)
 #print numerator[2]
 
 for i in xrange (len(numerator)):
-    P_Acc = 0.5*math.erfc(numerator[i]/denominator[i])
-    #print P_Acc
+    P_Error = 0.5*math.erfc(numerator[i]/denominator[i])
+    #print(P_Error)
+    P_Acc = 1 - P_Error
     plt.scatter([ratio[i]], [n1[i]], color=[(P_Acc),(P_Acc),(P_Acc)])
 
 
