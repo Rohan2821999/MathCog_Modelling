@@ -32,6 +32,7 @@ def slope_Yintercept(Y2=y[70],Y1=y[0],X2=distances[70],X1=distances[0]):
     return(m,c)
     #print(m,c)
 
+slope_Yintercept()
 def NormalizedRT_map():
     cmap = cm.RdYlGn
     m = slope_Yintercept()[0]
@@ -45,7 +46,8 @@ def NormalizedRT_map():
             colors = c.to_rgba(val)
             plt.scatter([ratio],[n1],color = colors)
 
+
     plt.xlabel('Ratio')
     plt.ylabel('n1')
     plt.show()
-NormalizedRT_map()
+#NormalizedRT_map()
