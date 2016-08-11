@@ -1,11 +1,10 @@
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.pylab as pl
-import Plotting_RT
+from Plotting_RT import*
 from matplotlib import cm
 import numpy as np
 import math
-
 
 data = np.genfromtxt(r'data_sim.csv',delimiter = ',' ,names = True, dtype = None,)
 ratios = list(set(data['ratio']))
@@ -41,8 +40,6 @@ for n1,n2,RT in ns:
     array_possible.append(np.random.choice([0,1],size=(10),p=[1-P_Acc[-1],P_Acc[-1]]))
     vals.append(np.random.choice(array_possible[-1]))
 
-
-
 def Plot_BinnedDiff(c = cm.ScalarMappable(cmap=cmap, norm = mpl.colors.Normalize(vmin=0.5,vmax=1))):
     for i in xrange(len(RT_ns)):
             if RT_ns[i]< 2000:
@@ -57,37 +54,7 @@ def Plot_E (c = cm.ScalarMappable(cmap=cmap, norm = mpl.colors.Normalize(vmin=-1
             E = (vals[i]-(RT_ns[i]/2000.0))
             colors = c.to_rgba(E)
             plt.scatter([ratio[i]], [n1_ns[i]],color = colors)
-'''
-class Person:
-  def _init_(self,w,ND_m,ND_i):
-      self.w = 0.15
-      self.ND_m =
-      self.ND_i =
-'''
-def Ea(n_1,r,w=0.2):
-    m =  Plotting_RT.slope_Yintercept()[0]
-    intercept = Plotting_RT.slope_Yintercept()[1]
-    dist = int(n_1 / r) - n_1
-    rt = (dist * m) + intercept
-    n_2 = n_1/r
-    numer = abs(n_1-n_2)
-    denom = math.sqrt(2)*w*(((n_1**2)+(n_2**2))**0.5)
-    P_Err = 0.5*math.erfc(numer/denom)
-    P_A = 1 - P_Err
-    array_poss = np.random.choice([0,1],size=(10),p=[1-P_A,P_A])
-    val = np.random.choice(array_poss)
-    if rt<500:
-        rt = 500
-    E = val - (rt/2000.)
-    return E
 
-
-def Plot_E_Space(c = cm.ScalarMappable(cmap=cmap, norm = mpl.colors.Normalize(vmin=-1,vmax=1))):
-    for ratio in ratios:
-        for n1 in n1s_set:
-            Easiness = Ea(n1,ratio)
-            colors = c.to_rgba(Easiness)
-            plt.scatter([ratio], [n1],color = colors)
 
 def Plot_PAcc(c = cm.ScalarMappable(cmap=cmap, norm = mpl.colors.Normalize(vmin=0.5,vmax=1))):
     for i in xrange(len(P_Acc)):
@@ -95,8 +62,8 @@ def Plot_PAcc(c = cm.ScalarMappable(cmap=cmap, norm = mpl.colors.Normalize(vmin=
             colors = c.to_rgba(P_Acc[i])
             plt.scatter([ratio[i]], [n1_ns[i]],color = colors)
 
-Plot_E_Space()
-#Plot_E()
+#Plot_BinnedDiff()
+Plot_PAcc()
 plt.xlabel('Ratio (n1/n2)')
 plt.ylabel('n1')
 plt.show()

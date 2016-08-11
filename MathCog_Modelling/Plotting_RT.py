@@ -32,7 +32,7 @@ def slope_Yintercept(Y2=y[70],Y1=y[0],X2=distances[70],X1=distances[0]):
     return(m,c)
     #print(m,c)
 
-slope_Yintercept()
+#slope_Yintercept()
 def NormalizedRT_map():
     cmap = cm.RdYlGn
     m = slope_Yintercept()[0]
