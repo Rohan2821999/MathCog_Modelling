@@ -1,3 +1,5 @@
+# Probablity of Accuracy Response modelling code ----- Author: Rohan Hundia ----
+
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.pylab as pl
