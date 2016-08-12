@@ -14,9 +14,13 @@ n1s = list(set(data['n1']))
 Reaction_T = data['RT']
 distances  = abs(data['n1'] - data['n2'])
 
-y=np.poly1d(np.polyfit(distances,Reaction_T,1))(distances) # Generating equation form
+y=np.poly1d(np.polyfit(distances,Reaction_T,1))(distances) # Create a best fit line and generate y coordinates of that line
 
 def Plot_RT_Regression():
+    '''
+     For Reaction Time < 2000 ms generate a scatter plot for discrete numericals
+     distance vs Reaction time
+    '''
     for i in xrange (len(Reaction_T)):
         if(Reaction_T[i])<=2000:
             plt.scatter(distances[i],Reaction_T[i])
@@ -27,13 +31,21 @@ def Plot_RT_Regression():
     plt.show()
 
 def slope_Yintercept(Y2=y[70],Y1=y[0],X2=distances[70],X1=distances[0]):
+    '''
+    Computes Slope and Y_intercept of the best fit line from the equation.
+    Arguments - Y1, Y2, X2, X1
+    '''
     m = ((Y2-Y1)/(X2-X1))
-    c = Y2 - (m*X2)
+    c = Y2 - (m*X2) #  Y intercept
     return(m,c)
     #print(m,c)
 
 #slope_Yintercept()
 def NormalizedRT_map():
+    '''
+    Generate Color map based on RT as the mean and average standard deviation computed from
+    another script : 370
+    '''
     cmap = cm.RdYlGn
     m = slope_Yintercept()[0]
     intercept = slope_Yintercept()[1]
