@@ -4,6 +4,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.pylab as pl
 from Plotting_RT import*
+from Easiness_Map import*
 from matplotlib import cm
 import numpy as np
 import math
@@ -14,6 +15,15 @@ n1s = (data['n1'])
 n1s_set = list(set(data['n1']))
 n2s = (data['n2'])
 Reaction_T = (data['RT'])
+
+data2 = np.genfromtxt(r'anon_raw_symbolic.csv',delimiter =',',names = True ,dtype = None)
+r = np.array(data2['ratio'])
+r = (r[~np.isnan(r)])
+n1s_data2 = np.array(data2['n1'])
+n1s_data2 = (n1s_data2[~np.isnan(n1s_data2)])
+Actual_E = np.array(data2['easyness'])
+Actual_E = (Actual_E[~np.isnan(Actual_E)])
+
 ns = []
 Acc_array = []
 ratio = []
@@ -50,13 +60,27 @@ def Plot_BinnedDiff(c = cm.ScalarMappable(cmap=cmap, norm = mpl.colors.Normalize
                 colors = c.to_rgba(vals[i])
                 plt.scatter([ratio[i]], [n1_ns[i]],color = colors)
 
-def Plot_E (c = cm.ScalarMappable(cmap=cmap, norm = mpl.colors.Normalize(vmin=-1,vmax=1))):
+P_Guessing = 0.1
+
+def Val_E (c = cm.ScalarMappable(cmap=cmap, norm = mpl.colors.Normalize(vmin=-1,vmax=1))):
+    for j in xrange(len(Subjects)):
+        for i in xrange(len(n1s)):
+            if 1 > Actual_E[i] > -1:
+                Easiness = Subjects[j].Ea(n1s_data2[i],r[i])
+                plt.scatter([Easiness],[Actual_E[i]])
+        plt.xlabel("Simulated Easiness Vals")
+        plt.ylabel("Actual Easiness Vals")
+        plt.show()
+
+
+'''
     for i in xrange(len(RT_ns)):
         if RT_ns[i]<2000:
             E = (vals[i]-(RT_ns[i]/2000.0))
             colors = c.to_rgba(E)
             plt.scatter([ratio[i]], [n1_ns[i]],color = colors)
-
+            print(E)
+'''
 
 def Plot_PAcc(c = cm.ScalarMappable(cmap=cmap, norm = mpl.colors.Normalize(vmin=0.5,vmax=1))):
     for i in xrange(len(P_Acc)):
@@ -65,7 +89,7 @@ def Plot_PAcc(c = cm.ScalarMappable(cmap=cmap, norm = mpl.colors.Normalize(vmin=
             plt.scatter([ratio[i]], [n1_ns[i]],color = colors)
 
 #Plot_BinnedDiff()
-Plot_PAcc()
+Val_E()
 plt.xlabel('Ratio (n1/n2)')
 plt.ylabel('n1')
 plt.show()

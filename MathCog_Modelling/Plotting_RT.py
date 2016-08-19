@@ -1,3 +1,5 @@
+# User Resposne Reaction Time Model Code ---- Author: Rohan Hundia ----
+
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.pylab as pl
@@ -13,9 +15,8 @@ ratios = list(set(data['ratio']))
 n1s = list(set(data['n1']))
 Reaction_T = data['RT']
 distances  = abs(data['n1'] - data['n2'])
-
 y=np.poly1d(np.polyfit(distances,Reaction_T,1))(distances) # Create a best fit line and generate y coordinates of that line
-
+print(len(y),len(distances))
 def Plot_RT_Regression():
     '''
      For Reaction Time < 2000 ms generate a scatter plot for discrete numericals
@@ -62,4 +63,8 @@ def NormalizedRT_map():
     plt.xlabel('Ratio')
     plt.ylabel('n1')
     plt.show()
-#NormalizedRT_map()
+Plot_RT_Regression()
+
+'''
+for i in xrange(len(numer))
+'''
