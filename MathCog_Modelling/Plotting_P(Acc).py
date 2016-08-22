@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.pylab as pl
 from Plotting_RT import*
 from Easiness_Map import*
+from Location_Val import*
 from matplotlib import cm
 import numpy as np
 import math
@@ -18,14 +19,14 @@ Reaction_T = (data['RT'])
 
 data2 = np.genfromtxt(r'anon_raw_symbolic.csv',delimiter =',',names = True ,dtype = None)
 r = np.array(data2['ratio'])
-r = (r[~np.isnan(r)])
+#r = (r[~np.isnan(r)])
 n1s_data2 = np.array(data2['n1'])
-n1s_data2 = (n1s_data2[~np.isnan(n1s_data2)])
+#n1s_data2 = (n1s_data2[~np.isnan(n1s_data2)])
 Actual_E = np.array(data2['easyness'])
-Actual_E = (Actual_E[~np.isnan(Actual_E)])
+#Actual_E = (Actual_E[~np.isnan(Actual_E)])
 
 ns = []
-Acc_array = []
+Acc_array, Easiness_Array = [],[]
 ratio = []
 numerator,denominator,P_Error,P_Acc,array_possible,vals = [],[],[],[],[],[]
 
@@ -61,16 +62,21 @@ def Plot_BinnedDiff(c = cm.ScalarMappable(cmap=cmap, norm = mpl.colors.Normalize
                 plt.scatter([ratio[i]], [n1_ns[i]],color = colors)
 
 P_Guessing = 0.1
-
+New_Actual_E = []
 def Val_E (c = cm.ScalarMappable(cmap=cmap, norm = mpl.colors.Normalize(vmin=-1,vmax=1))):
-    for j in xrange(len(Subjects)):
-        for i in xrange(len(n1s)):
+    for i in xrange(len(Actual_E)):
+        if (np.isnan(Actual_E[i])) == False:
             if 1 > Actual_E[i] > -1:
-                Easiness = Subjects[j].Ea(n1s_data2[i],r[i])
-                plt.scatter([Easiness],[Actual_E[i]])
-        plt.xlabel("Simulated Easiness Vals")
-        plt.ylabel("Actual Easiness Vals")
-        plt.show()
+                Subjects = Gen_SimInstances(i)
+                if (type(Subjects) != int) and (Subjects != None):
+                    Easiness = Subjects.Ea(n1s_data2[i],r[i])
+                    Easiness_Array.append(Easiness)
+                    New_Actual_E.append(Actual_E[i])
+                    plt.scatter([Easiness],[Actual_E[i]])
+    print(np.corrcoef(Easiness_Array,New_Actual_E))
+    plt.xlabel("Simulated Easiness Vals")
+    plt.ylabel("Actual Easiness Vals")
+    plt.show()
 
 
 '''

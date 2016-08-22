@@ -67,7 +67,7 @@ Child3 = Person(0.28,-12.7,1097)
 Child4 = Person(0.18,-12.7,1097)
 '''
 
-Adult1 = Person(0.16,-16,600)
+Adult1 = Person(0.16,-20,650)
 '''
 Adult2 = Person(0.11,-12.7,1097)
 Adult3 = Person(0.12,-12.7,1097)
