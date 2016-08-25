@@ -15,23 +15,24 @@ ratios = list(set(data['ratio']))
 n1s = list(set(data['n1']))
 Reaction_T = data['RT']
 distances  = abs(data['n1'] - data['n2'])
-y=np.poly1d(np.polyfit(distances,Reaction_T,1))(distances) # Create a best fit line and generate y coordinates of that line
-print(len(y),len(distances))
+y=np.poly1d(np.polyfit(distances[0:14],Reaction_T[0:14],2))(distances[0:14]) # Create a best fit line and generate y coordinates of that line
+print(y)
+#print(len(y),len(distances))
 def Plot_RT_Regression():
     '''
      For Reaction Time < 2000 ms generate a scatter plot for discrete numericals
      distance vs Reaction time
     '''
-    for i in xrange (len(Reaction_T)):
+    for i in xrange (14):
         if(Reaction_T[i])<=2000:
             plt.scatter(distances[i],Reaction_T[i])
 
-    plt.plot(distances,y,color='r')
+    plt.plot(distances[0:14],y,color='r')
     plt.xlabel('Distance (abs(n1-n2))')
     plt.ylabel('Reaction Time')
     plt.show()
 
-def slope_Yintercept(Y2=y[70],Y1=y[0],X2=distances[70],X1=distances[0]):
+def slope_Yintercept(Y2=y[12],Y1=y[0],X2=distances[12],X1=distances[0]):
     '''
     Computes Slope and Y_intercept of the best fit line from the equation.
     Arguments - Y1, Y2, X2, X1

@@ -40,23 +40,22 @@ class Person:
       intercept = self.i
       w = self.w
 
-      dist = int(n_1 / r) - n_1
-      if dist > 5:
-          m = -30
+      dist = int(round(n_1 / r)) - n_1
       rt = (dist * m) + intercept # Computing Reaction_Time from the values obtained from the RT graph
-      n_2 = n_1/r
+      n_2 = int(round(n_1/r))
       numer = abs(n_1-n_2)
       denom = math.sqrt(2)*w*(((n_1**2)+(n_2**2))**0.5)
       P_Err = 0.5*math.erfc(numer/denom)
       P_A = 1 - P_Err
       #print(P_A)
-      array_poss = np.random.choice([0,1],size=(10),p=[1-P_A,P_A]) # Generating bin values array (consisting of 0's and 1's)using P_Acc probability
+      array_poss = np.random.choice([0,1],size=(10),p=[1-P_A, P_A]) # Generating bin values array (consisting of 0's and 1's)using P_Acc probability
       val = np.random.choice(array_poss)
       if rt<500:
           rt = 500 # re-evaluate RT's < 500
       E = val - (rt/2000.)
       #print(E,n_1,r)
-      return E
+      #print(E)
+      return E, val, dist
 '''
 Generating different 'artifical' subjects with different weber fractions, slopes and intercepts
 '''

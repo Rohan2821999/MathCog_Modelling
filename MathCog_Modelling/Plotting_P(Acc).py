@@ -24,9 +24,10 @@ n1s_data2 = np.array(data2['n1'])
 #n1s_data2 = (n1s_data2[~np.isnan(n1s_data2)])
 Actual_E = np.array(data2['easyness'])
 #Actual_E = (Actual_E[~np.isnan(Actual_E)])
-
+Reaction_T_Data2 = np.array(data2['RT'])
+acc = np.array(data2['ACC'])
 ns = []
-Acc_array, Easiness_Array = [],[]
+Acc_array, Easiness_Array, Acc_Sim_Array = [],[],[]
 ratio = []
 numerator,denominator,P_Error,P_Acc,array_possible,vals = [],[],[],[],[],[]
 
@@ -62,20 +63,36 @@ def Plot_BinnedDiff(c = cm.ScalarMappable(cmap=cmap, norm = mpl.colors.Normalize
                 plt.scatter([ratio[i]], [n1_ns[i]],color = colors)
 
 P_Guessing = 0.1
-New_Actual_E = []
+New_Actual_E, New_Actual_acc, diff  = [],[],[]
 def Val_E (c = cm.ScalarMappable(cmap=cmap, norm = mpl.colors.Normalize(vmin=-1,vmax=1))):
     for i in xrange(len(Actual_E)):
         if (np.isnan(Actual_E[i])) == False:
             if 1 > Actual_E[i] > -1:
-                Subjects = Gen_SimInstances(i)
+                try:
+                    Subjects = Gen_SimInstances(i)[0]
+                    #col = Gen_SimInstances(i)[1]
+                except:
+                    pass
+                #print(Subjects,i)
                 if (type(Subjects) != int) and (Subjects != None):
-                    Easiness = Subjects.Ea(n1s_data2[i],r[i])
-                    Easiness_Array.append(Easiness)
-                    New_Actual_E.append(Actual_E[i])
-                    plt.scatter([Easiness],[Actual_E[i]])
-    print(np.corrcoef(Easiness_Array,New_Actual_E))
-    plt.xlabel("Simulated Easiness Vals")
-    plt.ylabel("Actual Easiness Vals")
+                    #r_t_sim = Subjects.Ea(n1s_data2[i],r[i])[1]
+
+                    #dis = Subjects.Ea(n1s_data2[i],r[i])[2]
+                    #Easiness = Subjects.Ea(n1s_data2[i],r[i])[0]
+                    Acc_Sim = Subjects.Ea(n1s_data2[i],r[i])[1]
+                    #print(Easiness)
+                    Acc_Sim_Array.append(Acc_Sim)
+                    #Easiness_Array.append(Easiness)
+                    #New_Actual_E.append(Actual_E[i])
+                    New_Actual_acc.append(acc[i])
+                    plt.scatter(Acc_Sim,acc[i])
+                    diff.append(Acc_Sim-acc[i])
+
+    print(len(Acc_Sim_Array),len(New_Actual_acc),len(diff))
+    print(diff.count(-1),diff.count(1),diff.count(0),len(diff))
+    #print(np.corrcoef(Acc_Sim_Array,New_Actual_acc))
+    plt.xlabel("Simulated Acc")
+    plt.ylabel("Actual Acc")
     plt.show()
 
 
