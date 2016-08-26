@@ -63,7 +63,7 @@ def Plot_BinnedDiff(c = cm.ScalarMappable(cmap=cmap, norm = mpl.colors.Normalize
                 plt.scatter([ratio[i]], [n1_ns[i]],color = colors)
 
 P_Guessing = 0.1
-New_Actual_E, New_Actual_acc, diff  = [],[],[]
+New_Actual_E, New_Actual_acc, diff,r_t_sim_array,Actual_RT_Array  = [],[],[],[],[]
 def Val_E (c = cm.ScalarMappable(cmap=cmap, norm = mpl.colors.Normalize(vmin=-1,vmax=1))):
     for i in xrange(len(Actual_E)):
         if (np.isnan(Actual_E[i])) == False:
@@ -75,28 +75,33 @@ def Val_E (c = cm.ScalarMappable(cmap=cmap, norm = mpl.colors.Normalize(vmin=-1,
                     pass
                 #print(Subjects,i)
                 if (type(Subjects) != int) and (Subjects != None):
-                    r_t_sim = Subjects.Ea(n1s_data2[i],r[i])[2]
-
+                    #r_t_sim = Subjects.Ea(n1s_data2[i],r[i])[2]
+                    #r_t_sim_array.append(r_t_sim)
+                    #Actual_RT_Array.append(Reaction_T_Data2[i])
                     #dis = Subjects.Ea(n1s_data2[i],r[i])[2]
-                    #Easiness = Subjects.Ea(n1s_data2[i],r[i])[0]
+                    Easiness = Subjects.Ea(n1s_data2[i],r[i])[0]
                     #Acc_Sim = Subjects.Ea(n1s_data2[i],r[i])[1]
                     #print(Easiness)
                     #Acc_Sim_Array.append(Acc_Sim)
-                    #Easiness_Array.append(Easiness)
-                    #New_Actual_E.append(Actual_E[i])
+                    Easiness_Array.append(Easiness)
+                    New_Actual_E.append(Actual_E[i])
                     #New_Actual_acc.append(acc[i])
-                    if acc[i] == 0:
-                        c = 'red'
-                    else:
-                        c = 'green'
-                    plt.scatter(r[i],r_t_sim,color = c,alpha = 0.25)
+                    #if acc[i] == 0:
+                    #    c = 'red'
+                    #else:
+                    #    c = 'green'
+                    #plt.scatter(Easiness,Actual_E[i],alpha =0.25)
+
                     #diff.append(Acc_Sim-acc[i])
 
     #print(len(Acc_Sim_Array),len(New_Actual_acc),len(diff))
     #print(diff.count(-1),diff.count(1),diff.count(0),len(diff))
     #print(np.corrcoef(Acc_Sim_Array,New_Actual_acc))
-    plt.xlabel("Ratios")
-    plt.ylabel("Actual_RT")
+    plt.hist(Easiness_Array,bins=20,histtype='stepfilled',normed= False,color = 'b',label='Easiness Simulated',alpha = 0.5)
+    plt.hist(New_Actual_E,bins=20,histtype='stepfilled',normed= False,color = 'r',label='Actual Easiness',alpha=0.25)
+    plt.xlabel("Easiness Sim")
+    plt.ylabel("Easiness Actual")
+    plt.legend()
     plt.show()
 
 
