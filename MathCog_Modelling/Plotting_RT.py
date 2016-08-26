@@ -64,7 +64,7 @@ def NormalizedRT_map():
     plt.xlabel('Ratio')
     plt.ylabel('n1')
     plt.show()
-Plot_RT_Regression()
+#Plot_RT_Regression()
 
 '''
 for i in xrange(len(numer))

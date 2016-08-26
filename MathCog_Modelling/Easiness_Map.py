@@ -55,7 +55,7 @@ class Person:
       E = val - (rt/2000.)
       #print(E,n_1,r)
       #print(E)
-      return E, val, dist
+      return E, val, rt 
 '''
 Generating different 'artifical' subjects with different weber fractions, slopes and intercepts
 '''

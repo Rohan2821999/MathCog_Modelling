@@ -75,24 +75,28 @@ def Val_E (c = cm.ScalarMappable(cmap=cmap, norm = mpl.colors.Normalize(vmin=-1,
                     pass
                 #print(Subjects,i)
                 if (type(Subjects) != int) and (Subjects != None):
-                    #r_t_sim = Subjects.Ea(n1s_data2[i],r[i])[1]
+                    r_t_sim = Subjects.Ea(n1s_data2[i],r[i])[2]
 
                     #dis = Subjects.Ea(n1s_data2[i],r[i])[2]
                     #Easiness = Subjects.Ea(n1s_data2[i],r[i])[0]
-                    Acc_Sim = Subjects.Ea(n1s_data2[i],r[i])[1]
+                    #Acc_Sim = Subjects.Ea(n1s_data2[i],r[i])[1]
                     #print(Easiness)
-                    Acc_Sim_Array.append(Acc_Sim)
+                    #Acc_Sim_Array.append(Acc_Sim)
                     #Easiness_Array.append(Easiness)
                     #New_Actual_E.append(Actual_E[i])
-                    New_Actual_acc.append(acc[i])
-                    plt.scatter(Acc_Sim,acc[i])
-                    diff.append(Acc_Sim-acc[i])
+                    #New_Actual_acc.append(acc[i])
+                    if acc[i] == 0:
+                        c = 'red'
+                    else:
+                        c = 'green'
+                    plt.scatter(r[i],r_t_sim,color = c,alpha = 0.25)
+                    #diff.append(Acc_Sim-acc[i])
 
-    print(len(Acc_Sim_Array),len(New_Actual_acc),len(diff))
-    print(diff.count(-1),diff.count(1),diff.count(0),len(diff))
+    #print(len(Acc_Sim_Array),len(New_Actual_acc),len(diff))
+    #print(diff.count(-1),diff.count(1),diff.count(0),len(diff))
     #print(np.corrcoef(Acc_Sim_Array,New_Actual_acc))
-    plt.xlabel("Simulated Acc")
-    plt.ylabel("Actual Acc")
+    plt.xlabel("Ratios")
+    plt.ylabel("Actual_RT")
     plt.show()
 
 

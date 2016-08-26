@@ -30,20 +30,24 @@ def Gen_SimInstances(y):
         #print(ssid_list[var],age_grade)
         if (18 >= age_grade >= 15):
             Child = Person(0.16,-16,750)
-            c = 'red'
+            #c = 'red'
         elif(14 >= age_grade >= 11 ):
             Child = Person(0.22,-30,950)
-            c = 'blue'
+            #c = 'blue'
         elif(10 >= age_grade >= 8):
             Child = Person(0.25,-40,1200)
-            c = 'green'
+            #c = 'green'
         elif(age_grade == 7):
             Child = Person(0.27,-50,1500)
-            c = 'brown'
+            #c = 'yellow'
 
         #if acc[y] == 0:
-        #   Child = None
-        #   c = None
+            #c = 'red'
+        #if acc[y] == 1:
+            #c = 'green'
+           #Child = None
+           #c = None
+
 
         #print(Child,age_grade,ssid_file2[y])
         return Child,c
