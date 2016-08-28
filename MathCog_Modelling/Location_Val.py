@@ -1,4 +1,5 @@
-#Searching Script
+# Generating simulated people from (Easiness_Map.py) according to SSID vals from other CSV file
+# -- Author: Rohan Hundia --
 import numpy as np
 from Easiness_Map import*
 
@@ -15,6 +16,11 @@ acc = data_file2['ACC']
 
 #for j in xrange(len(ssid_file2)):
 def Gen_SimInstances(y):
+    '''
+    Argument y is defined in Plot_PAcc.py script where y are the iterated values till length of all easiness vals
+    This function also checks age groups/ class of each subject (person) and converts class to age.
+    Generates different instances of simulted people for each age group.
+    '''
     if ssid_file2[y] in ssid:
         #print(ssid_file2[j])
         Child = 0

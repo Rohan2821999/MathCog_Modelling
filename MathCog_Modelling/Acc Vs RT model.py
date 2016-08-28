@@ -1,4 +1,5 @@
 # Avg. RT vs Avg. Accuracy Model for Each Subject
+# --- Author: Rohan Hundia --
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -40,7 +41,6 @@ for i in xrange(len(Actual_E)):
                     RT_added = RT_added + RT_new
                     acc_added = acc_added + acc_new
                     #print(RT_added)
-                    #code here
                 else:
                     #print(i)
                     new_ssid = ssid_file2[i]
@@ -53,8 +53,8 @@ for i in xrange(len(Actual_E)):
                         #print(RT_added / x)
                     RT_added = RT[i]
                     acc_added = acc[i]
-print(Avg_Acc)
-print(Avg_RT)
+#print(Avg_Acc)
+#print(Avg_RT)
 for i in xrange(len(Avg_Acc)):
     plt.scatter(Avg_Acc[i],Avg_RT[i])
 plt.xlabel("Avg Accuracy")

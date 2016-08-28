@@ -1,4 +1,4 @@
-# User Resposne Reaction Time Model Code ---- Author: Rohan Hundia ----
+# User Response Reaction Time Model Code ---- Author: Rohan Hundia ----
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -10,24 +10,24 @@ import pandas as pd
 
 RT_dis = []
 
-data = np.genfromtxt(r'data_sim.csv',delimiter = ',' ,names = True, dtype = None,)
-ratios = list(set(data['ratio']))
+
+data = np.genfromtxt(r'data_sim.csv',delimiter = ',' ,names = True, dtype = None,) # Access to following CSV file 'data_sim' to read contents
+ratios = list(set(data['ratio'])) # All unique vals of ratio from CSV file
 n1s = list(set(data['n1']))
 Reaction_T = data['RT']
-distances  = abs(data['n1'] - data['n2'])
+distances  = abs(data['n1'] - data['n2']) # Absolute numerical distance
 y=np.poly1d(np.polyfit(distances[0:14],Reaction_T[0:14],2))(distances[0:14]) # Create a best fit line and generate y coordinates of that line
-print(y)
-#print(len(y),len(distances))
+
 def Plot_RT_Regression():
     '''
      For Reaction Time < 2000 ms generate a scatter plot for discrete numericals
-     distance vs Reaction time
+     distance vs Reaction time and also compute and draw best fit over the data
     '''
-    for i in xrange (14):
+    for i in xrange (len(Reaction_T)):
         if(Reaction_T[i])<=2000:
             plt.scatter(distances[i],Reaction_T[i])
 
-    plt.plot(distances[0:14],y,color='r')
+    plt.plot(distances[0:len(Reaction_T)],y,color='r')
     plt.xlabel('Distance (abs(n1-n2))')
     plt.ylabel('Reaction Time')
     plt.show()
@@ -37,10 +37,9 @@ def slope_Yintercept(Y2=y[12],Y1=y[0],X2=distances[12],X1=distances[0]):
     Computes Slope and Y_intercept of the best fit line from the equation.
     Arguments - Y1, Y2, X2, X1
     '''
-    m = ((Y2-Y1)/(X2-X1))
+    m = ((Y2-Y1)/(X2-X1)) # Slope
     c = Y2 - (m*X2) #  Y intercept
     return(m,c)
-    #print(m,c)
 
 #slope_Yintercept()
 def NormalizedRT_map():
@@ -64,8 +63,5 @@ def NormalizedRT_map():
     plt.xlabel('Ratio')
     plt.ylabel('n1')
     plt.show()
-#Plot_RT_Regression()
 
-'''
-for i in xrange(len(numer))
-'''
+Plot_RT_Regression()

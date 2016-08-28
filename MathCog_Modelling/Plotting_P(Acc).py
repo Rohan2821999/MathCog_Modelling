@@ -1,4 +1,5 @@
-# Probablity of Accuracy Response modelling code ----- Author: Rohan Hundia ----
+# Probablity of Accuracy Response modelling code
+# -- Author: Rohan Hundia --
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -64,6 +65,7 @@ def Plot_BinnedDiff(c = cm.ScalarMappable(cmap=cmap, norm = mpl.colors.Normalize
 
 P_Guessing = 0.1
 New_Actual_E, New_Actual_acc, diff,r_t_sim_array,Actual_RT_Array  = [],[],[],[],[]
+
 def Val_E (c = cm.ScalarMappable(cmap=cmap, norm = mpl.colors.Normalize(vmin=-1,vmax=1))):
     for i in xrange(len(Actual_E)):
         if (np.isnan(Actual_E[i])) == False:
@@ -97,22 +99,12 @@ def Val_E (c = cm.ScalarMappable(cmap=cmap, norm = mpl.colors.Normalize(vmin=-1,
     #print(len(Acc_Sim_Array),len(New_Actual_acc),len(diff))
     #print(diff.count(-1),diff.count(1),diff.count(0),len(diff))
     #print(np.corrcoef(Acc_Sim_Array,New_Actual_acc))
-    plt.hist(Easiness_Array,bins=20,histtype='stepfilled',normed= False,color = 'b',label='Easiness Simulated',alpha = 0.5)
+    plt.hist(Easiness_Array,bins=20,histtype='stepfilled',normed= False,color = 'b',label='Easiness Simulated',alpha = 0.5) # Generating Histograms of Actual Easiness vs Simulated Easiness to see how muuch they overlap
     plt.hist(New_Actual_E,bins=20,histtype='stepfilled',normed= False,color = 'r',label='Actual Easiness',alpha=0.25)
     plt.xlabel("Easiness Sim")
     plt.ylabel("Easiness Actual")
     plt.legend()
     plt.show()
-
-
-'''
-    for i in xrange(len(RT_ns)):
-        if RT_ns[i]<2000:
-            E = (vals[i]-(RT_ns[i]/2000.0))
-            colors = c.to_rgba(E)
-            plt.scatter([ratio[i]], [n1_ns[i]],color = colors)
-            print(E)
-'''
 
 def Plot_PAcc(c = cm.ScalarMappable(cmap=cmap, norm = mpl.colors.Normalize(vmin=0.5,vmax=1))):
     for i in xrange(len(P_Acc)):

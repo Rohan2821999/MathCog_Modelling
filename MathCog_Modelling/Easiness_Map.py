@@ -1,5 +1,5 @@
-# Easiness Mapping Code ---- Author: Rohan Hundia ---
-
+# Easiness Mapping Code and Generating Simulated people based on weber fraction, intercept and slope
+# --- Author --- Rohan Hundia
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.pylab as pl
@@ -49,14 +49,13 @@ class Person:
       P_A = 1 - P_Err
       #print(P_A)
       array_poss = np.random.choice([0,1],size=(10),p=[1-P_A, P_A]) # Generating bin values array (consisting of 0's and 1's)using P_Acc probability
-      val = np.random.choice(array_poss)
-      rt = np.random.normal(rt,intercept)
+      val = np.random.choice(array_poss) # Randomly choosing samples from array_poss
+      rt = np.random.normal(rt,intercept) # Normal Distribution sampling of RT vals
       if rt<500:
           rt = 500 # re-evaluate RT's < 500
           rt = np.random.normal(rt,130)
-      E = val - (rt/2000.)
-      #print(E,n_1,r)
-      #print(E)
+      E = val - (rt/2000.) # Computing discrete Easiness value of a question
+
       return E, val, rt
 '''
 Generating different 'artifical' subjects with different weber fractions, slopes and intercepts
